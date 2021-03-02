@@ -18,3 +18,5 @@ df = linear_ridge_reg_real(X_big_trn, y_big_trn, X_big_val, y_big_val)
 print("MSE for Linear Ridge Regression on Big Data")
 print(df)
 df.plot(x="Lambda (l)", title="MSE for Linear Ridge Regression on Big Data");
+
+plt.show()

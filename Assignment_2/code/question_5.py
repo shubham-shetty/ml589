@@ -30,6 +30,9 @@ def linear_reg_abs_error(X_trn, y_trn, X_val, y_val):
     return(df)
   
 df = linear_reg_abs_error(X_trn, y_trn, X_val, y_val)
+print("\n")
 print("MAE for Linear Ridge Regression on small data")
 print(df)
 df.plot(x="Lambda (l)", title="MAE for Linear Ridge Regression");
+
+plt.show()
