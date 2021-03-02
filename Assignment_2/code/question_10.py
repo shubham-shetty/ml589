@@ -13,7 +13,7 @@ def KNN_reg_real(X_big_trn, y_big_trn, X_big_val, y_big_val):
   
 df = KNN_reg_real(X_big_trn, y_big_trn, X_big_val, y_big_val)
 print("MSE for KNN Regression on Big Data")
-print(df)
+print(df.to_string(index=False))
 df.plot(x="K", title="MSE for KNN Regression on Big Data");
 
 plt.show()

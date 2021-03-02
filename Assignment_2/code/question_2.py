@@ -13,7 +13,7 @@ def KNN_reg_sq_error(X_trn, y_trn, X_val, y_val, K):
   
 df = KNN_reg_sq_error(X_trn, y_trn, X_val, y_val, 10)
 print("MSE for KNN Regression on small data")
-print(df)
+print(df.to_string(index=False))
 df.plot(x="K", title="MSE for KNN Regression");
 
 # MAE for KNN Regression
@@ -29,7 +29,7 @@ def KNN_reg_abs_error(X_trn, y_trn, X_val, y_val, K):
 df = KNN_reg_abs_error(X_trn, y_trn, X_val, y_val, 10)
 print("\n")
 print("MAE for KNN Regression on small data")
-print(df)
+print(df.to_string(index=False))
 df.plot(x="K", title="MAE for KNN Regression");
 
 plt.show()

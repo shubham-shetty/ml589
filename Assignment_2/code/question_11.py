@@ -19,7 +19,7 @@ def reg_tree_real(X_big_trn, y_big_trn, X_big_val, y_big_val):
   
 df = reg_tree_real(X_big_trn, y_big_trn, X_big_val, y_big_val)
 print("MSE for Regression Tree on Big Data")
-print(df)
+print(df.to_string(index=False))
 df.plot(x="Depth", title="MSE for Regression Tree on Big Data");
 
 plt.show()

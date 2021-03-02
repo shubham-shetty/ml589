@@ -15,7 +15,7 @@ def linear_reg_sq_error(X_trn, y_trn, X_val, y_val):
 
 df = linear_reg_sq_error(X_trn, y_trn, X_val, y_val)
 print("MSE for Linear Ridge Regression on small data")
-print(df)
+print(df.to_string(index=False))
 df.plot(x="Lambda (l)", title="MSE for Linear Ridge Regression");
 
 # MAE for Linear Ridge Regression
@@ -32,7 +32,7 @@ def linear_reg_abs_error(X_trn, y_trn, X_val, y_val):
 df = linear_reg_abs_error(X_trn, y_trn, X_val, y_val)
 print("\n")
 print("MAE for Linear Ridge Regression on small data")
-print(df)
+print(df.to_string(index=False))
 df.plot(x="Lambda (l)", title="MAE for Linear Ridge Regression");
 
 plt.show()
