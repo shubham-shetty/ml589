@@ -1,3 +1,5 @@
+from preface import *
+
 # Regression Tree for real data
 def reg_tree_real(X_big_trn, y_big_trn, X_big_val, y_big_val):
     max_depth = 5
@@ -16,5 +18,6 @@ def reg_tree_real(X_big_trn, y_big_trn, X_big_val, y_big_val):
     return df
   
 df = reg_tree_real(X_big_trn, y_big_trn, X_big_val, y_big_val)
+print("MSE for Regression Tree on Big Data")
 print(df)
-df.plot(x="Depth", title="MSE for Regression Tree on Big Data");
+df.plot(x="Depth", title="MSE for Regression Tree on Big Data")

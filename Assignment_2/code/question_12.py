@@ -1,3 +1,6 @@
+from preface import *
+from question_3 import *
+
 # Linear Ridge Regression for real data
 def linear_ridge_reg_real(X_big_trn, y_big_trn, X_big_val, y_big_val):
     l = [0, 1, 10, 100, 1000, 10000]
@@ -12,5 +15,6 @@ def linear_ridge_reg_real(X_big_trn, y_big_trn, X_big_val, y_big_val):
     return(df)
   
 df = linear_ridge_reg_real(X_big_trn, y_big_trn, X_big_val, y_big_val)
+print("MSE for Linear Ridge Regression on Big Data")
 print(df)
 df.plot(x="Lambda (l)", title="MSE for Linear Ridge Regression on Big Data");

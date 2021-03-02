@@ -1,3 +1,5 @@
+import numpy as np
+
 # Linear Ridge Regression
 def linear_reg_predict(x, w):
     y = np.dot(x, w)

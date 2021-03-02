@@ -1,3 +1,5 @@
+from preface import *
+
 # KNN Regression
 def KNN_reg_predict(X_trn, y_trn, x, K):
     

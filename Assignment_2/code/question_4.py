@@ -1,3 +1,5 @@
+from question_3 import *
+
 # Training Ridge Regression Model
 def linear_reg_train(X_trn, y_trn, l):
     xt = X_trn.transpose()

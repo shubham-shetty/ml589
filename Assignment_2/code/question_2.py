@@ -1,3 +1,6 @@
+from preface import *
+from question_1 import *
+
 # MSE for KNN Regression
 def KNN_reg_sq_error(X_trn, y_trn, X_val, y_val, K):
     eval_sq_error = []
@@ -9,6 +12,7 @@ def KNN_reg_sq_error(X_trn, y_trn, X_val, y_val, K):
     return(df)
   
 df = KNN_reg_sq_error(X_trn, y_trn, X_val, y_val, 10)
+print("MSE for KNN Regression on small data")
 print(df)
 df.plot(x="K", title="MSE for KNN Regression");
 
@@ -23,5 +27,6 @@ def KNN_reg_abs_error(X_trn, y_trn, X_val, y_val, K):
     return(df)
   
 df = KNN_reg_abs_error(X_trn, y_trn, X_val, y_val, 10)
+print("MAE for KNN Regression on small data")
 print(df)
 df.plot(x="K", title="MAE for KNN Regression");

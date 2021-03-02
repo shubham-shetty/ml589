@@ -1,3 +1,5 @@
+from preface import *
+
 # KNN Regression for real data
 def KNN_reg_real(X_big_trn, y_big_trn, X_big_val, y_big_val):
     K = [1, 2, 5, 10, 20, 50]
@@ -10,5 +12,6 @@ def KNN_reg_real(X_big_trn, y_big_trn, X_big_val, y_big_val):
     return df
   
 df = KNN_reg_real(X_big_trn, y_big_trn, X_big_val, y_big_val)
+print("MSE for KNN Regression on Big Data")
 print(df)
 df.plot(x="K", title="MSE for KNN Regression on Big Data");
