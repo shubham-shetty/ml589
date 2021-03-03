@@ -1,0 +1,324 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{csquotes}
+\usepackage{subfig}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage[margin=1in, left=1.2in, includehead, includefoot]{geometry}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+\graphicspath{{images/}}
+
+\title{%
+\textbf{Assignment 2: Regression}\\
+\large \textit{\textbf{CS 589 - ML}}}
+\author{Shubham Shetty (shubhamshett@umass.edu) \\
+Brinda Murulidhara (bmurulidhara@umass.edu)\\
+Adarsh Kolya (akolya@umass.edu)}
+\date{\textit{March 2021}}
+
+\begin{document}
+
+    \begin{titlepage}
+        \maketitle
+        \thispagestyle{empty}
+    \end{titlepage}
+
+\section*{\textbf{Preface}}
+Before running our codes, the following packages are imported and test \& training data are assigned to variables. Also, some reusable functions are defined - \\
+\lstinputlisting[language=Python]{preface.py}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 1}}
+Following function runs K-Nearest Neighbours regression on given datasets - \\
+\lstinputlisting[language=Python]{regression_1.py}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 2}}
+First, we calculate MSE for training and test data using our KNN function.
+\lstinputlisting[language=Python]{regression_2_1.py}
+Following is the observed values for MSE - 
+%\lstinputlisting[language=Python]{regression_2_1_1.py}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|} \hline
+    \textbf{K} &  \textbf{Training Data Error} &  \textbf{Test Data Error}\\ \hline
+1.0    &         0.000000     &    0.031462\\ \hline
+2.0    &         0.008033     &    0.022590\\ \hline
+3.0    &         0.011284     &    0.020367\\ \hline
+4.0    &         0.013460     &    0.020312\\ \hline
+5.0    &         0.014874     &    0.020941\\ \hline
+6.0    &         0.014836     &    0.021199\\ \hline
+7.0    &         0.015653     &    0.021181\\ \hline
+8.0    &         0.015776     &    0.021703\\ \hline
+9.0    &         0.017731     &    0.022148\\ \hline
+10.0   &          0.018331    &     0.022652\\ \hline
+    \end{tabular}
+    \caption{MSE Values for KNN Regression}
+\end{table}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.65]{MSE_KNN.png}
+\end{figure}
+Next, we calculate MAE for training and test data using our KNN function.
+\lstinputlisting[language=Python]{regression_2_2.py}
+Following is the observed values for MAE - 
+%\lstinputlisting[language=Python]{regression_2_2_1.py}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|} \hline
+    \textbf{K} &  \textbf{Training Data Error} &  \textbf{Test Data Error}\\ \hline
+ 1.0     &        0.000000    &     0.142356\\ \hline
+ 2.0     &        0.069524    &     0.121296\\ \hline
+ 3.0     &        0.087810    &     0.113677\\ \hline
+ 4.0     &        0.093670    &     0.114556\\ \hline
+ 5.0     &        0.096531    &     0.114927\\ \hline
+ 6.0     &        0.098717    &     0.114976\\ \hline
+ 7.0     &        0.100032    &     0.115389\\ \hline
+ 8.0     &        0.099904    &     0.117003\\ \hline
+ 9.0     &        0.109744    &     0.117753\\ \hline
+10.0     &        0.110578    &     0.119928\\ \hline
+    \end{tabular}
+    \caption{MAE Values for KNN Regression}
+\end{table}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{MAE_KNN.png}
+\end{figure}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 3}}
+Following code is a trivial method to evaluate a linear regression model - 
+\lstinputlisting[language=Python]{regression_3.py}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 4}}
+Following method trains a ridge regression model - 
+\lstinputlisting[language=Python]{regression_4.py}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 5}}
+First, we calculate MSE for training and test data using our Ridge Regression model - 
+\lstinputlisting[language=Python]{regression_5_1.py}
+Following is the observed values for MSE - 
+%\lstinputlisting[language=Python]{regression_5_1_1.py}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|} \hline
+    \textbf{Lambda (l)} &  \textbf{Training Data Error} &  \textbf{Test Data Error}\\ \hline
+0.000 & 0.010242 & 0.010909 \\ \hline
+0.001 & 0.010242 & 0.010910\\ \hline
+0.010 & 0.010243 & 0.010917\\ \hline
+0.100 & 0.010263 & 0.011005\\ \hline
+1.000 & 0.011953 & 0.013187\\ \hline
+10.000 & 0.058293 & 0.059082\\ \hline
+    \end{tabular}
+    \caption{MSE Values for Linear Ridge Regression}
+\end{table}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{MSE_Ridge.png}
+\end{figure}
+Next, we calculate MAE for training and test data using our Ridge Regression model -
+\lstinputlisting[language=Python]{regression_5_2.py}
+Following is the observed values for MAE - 
+%\lstinputlisting[language=Python]{regression_5_2_1.py}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|} \hline
+    \textbf{Lambda (l)} &  \textbf{Training Data Error} &  \textbf{Test Data Error}\\ \hline
+0.000 & 0.080886 & 0.082917 \\ \hline
+0.001 & 0.080884 & 0.082920\\ \hline
+0.010 & 0.080871 & 0.082945\\ \hline
+0.100 & 0.080776 & 0.083253\\ \hline
+1.000 & 0.087064 & 0.090350\\ \hline
+10.000 & 0.197639 & 0.198164\\ \hline
+    \end{tabular}
+    \caption{MAE Values for Linear Ridge Regression}
+\end{table}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{MAE_Ridge.png}
+\end{figure}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 6}}
+%The ridge regression coefficient estimates are the values that minimize the following function - 
+%\begin{center}
+%$\sum_{n=1}^N ( w^\top x^{(n)}-y^{(n)})^2 + \lambda \Vert w \Vert^2$    
+%\end{center}
+%where $\lambda$ is the tuning parameter and $\Vert w \Vert^2$ is the square of second norm of regression coefficients. $\lambda \Vert w \Vert^2$ is the shrinkage penalty which acts to reduce the values of $w$ as value of $\lambda$ increases. For instance, we can see this for our training data - 
+%\lstinputlisting[language=Python]{regression_6.py}
+%\begin{figure}[H]
+%    \centering
+%    \includegraphics[scale=0.75]{ridge_lambda.png}
+%\end{figure}
+\begin{enumerate}
+\item (A) Squared training error increases as $\lambda$ increases. 
+\newline
+As $\lambda$ increases, the regression coefficients ($w$) decrease which indicates that the model is getting less complex (higher bias) which results in greater error.
+\item (C) For squared test error, error goes down for a while, then goes up, and may stay constant in either phase.
+\newline
+As $\lambda$ increases, the coefficients decrease and some coefficients may be nearly 0. As a result, the overall function becomes less complex and overfitting reduces. The MSE  decreases. However, on further increasing lambda, overfitting may reduce to an extent that the data is now under fitted. Hence, the MSE increases. 
+\item (A) Absolute training error increases as $\lambda$ increases
+\newline
+For the same reason as in 1 (increase in bias due to increasing $\lambda$), absolute training error increases with an increase in $\lambda$.
+\item (C) For absolute test error, error goes down for a while, then goes up, and may stay constant in either phase.
+\newline
+For same reason as in 2, we see that absolute error will reduce initially, reach a minima or optimal point, and then increas as $\lambda$ increases.
+\end{enumerate}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 7}}
+Following method evaluates a regression stump. It returns c\_left if x[dim]$<=$thresh and c\_right otherwise.
+\lstinputlisting[language=Python]{regression_7.py}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 8}}
+Following method trains a regression stump - 
+\lstinputlisting[language=Python]{regression_8.py}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 9}}
+Following code generates MSE and MAE for the given training and test data as per the regression stump method defined earlier - 
+\lstinputlisting[language=Python]{regression_9.py}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|} \hline
+     &  \textbf{Training Data Error} &  \textbf{Test Data Error}\\ \hline
+\textbf{MSE} &	0.097324 &	0.123254 \\ \hline
+\textbf{MAE} &	0.255508 &	0.288270 \\ \hline
+    \end{tabular}
+    \caption{MSE \& MAE Values for Rigression Stump}
+\end{table}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 10}}
+Following method evaluates KNN Regression on real big data for various values of K. This method utilises KNeighborsRegressor module from scikit-learn.
+\lstinputlisting[language=Python]{regression_10.py}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|} \hline
+    \textbf{K} &  \textbf{Training Data Error} &  \textbf{Test Data Error}\\ \hline
+ 1.0        &     0.000000   &      0.063055\\ \hline
+ 2.0        &     0.013516   &      0.051343\\ \hline
+ 5.0        &     0.029755   &      0.047411\\ \hline
+10.0        &     0.043787   &      0.054627\\ \hline
+20.0        &     0.059547   &      0.067552\\ \hline
+50.0        &     0.083329   &      0.096843\\ \hline
+    \end{tabular}
+    \caption{MSE Values for KNN Regression on Big Data}
+\end{table}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.65]{KNN_Big.png}
+\end{figure}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 11}}
+Following method evaluates Regression Tree on real big data for various depths. This method utilises DecisionTreeRegressor module from scikit-learn.
+\lstinputlisting[language=Python]{regression_11.py}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|} \hline
+    \textbf{Depth} &  \textbf{Training Data Error} &  \textbf{Test Data Error}\\ \hline
+1.0     &        0.226337        & 0.225094\\ \hline
+2.0     &        0.117116        & 0.121711\\ \hline
+3.0     &        0.075729        & 0.080604\\ \hline
+4.0     &        0.056466        & 0.061122\\ \hline
+5.0     &        0.042719        & 0.048591\\ \hline
+    \end{tabular}
+    \caption{MSE Values for Regression Tree on Big Data}
+\end{table}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{tree_big.png}
+\end{figure}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 12}}
+Following method evaluates Linear Ridge Regression on real big data for various lambda values. This method utilises linear\_model module from scikit-learn.
+\lstinputlisting[language=Python]{regression_12.py}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|} \hline
+\textbf{Lambda (l)} & \textbf{Training Data Error} &  \textbf{Test Data Error} \\ \hline
+    0.0    &         0.294976 &        0.278076 \\ \hline
+    1.0    &         0.294976 &        0.278082 \\ \hline
+   10.0    &         0.294981 &        0.278144 \\ \hline
+  100.0    &         0.295388 &        0.279136 \\ \hline
+ 1000.0    &         0.313595 &        0.303158 \\ \hline
+10000.0    &         0.522598 &        0.514033 \\ \hline
+    \end{tabular}
+    \caption{MSE Values for Linear Ridge Regression on Big Data}
+\end{table}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.7]{ridge_big.png}
+\end{figure}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 13}}
+Following method evaluates Linear Lasso Regression on real big data for various lambda values. This method utilises linear\_model module from scikit-learn.
+\lstinputlisting[language=Python]{regression_13.py}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|} \hline
+\textbf{Lambda (l)} & \textbf{Training Data Error} &  \textbf{Test Data Error} \\ \hline
+   0.0      &       0.294967     &    0.278102\\ \hline
+   0.1      &       0.294967     &    0.278104\\ \hline
+   1.0      &       0.294968     &    0.278118\\ \hline
+  10.0      &       0.294998     &    0.278288\\ \hline
+ 100.0      &       0.296185     &    0.280887\\ \hline
+1000.0      &       0.342903     &    0.338830\\ \hline
+    \end{tabular}
+    \caption{MSE Values for Linear Lasso Regression on Big Data}
+\end{table}
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{lasso_big.png}
+\end{figure}
+
+\end{document}
