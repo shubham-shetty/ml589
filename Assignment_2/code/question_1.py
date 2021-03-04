@@ -22,3 +22,4 @@ def KNN_reg_predict(X_trn, y_trn, x, K):
     for i in range(K):
         y_new += y_trn[dist_sorted[i][0]]/K
     return y_new
+    

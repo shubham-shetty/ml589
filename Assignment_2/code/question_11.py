@@ -14,12 +14,9 @@ def reg_tree_real(X_big_trn, y_big_trn, X_big_val, y_big_val):
         y_pred_tst = tree1.predict(X_big_val)
         # Errors
         sq_errs.append([i, mean_squared_error(y_big_trn, y_pred_trn), mean_squared_error(y_big_val, y_pred_tst)])
-    df = pd.DataFrame(np.array(sq_errs),columns=['Depth', 'Training Data Error', 'Test Data Error'])
+    df = np.array(sq_errs)
     return df
   
 df = reg_tree_real(X_big_trn, y_big_trn, X_big_val, y_big_val)
 print("MSE for Regression Tree on Big Data")
-print(df)
-df.plot(x="Depth", title="MSE for Regression Tree on Big Data");
-
-plt.show()
+prettyPrintTable(df, "Depth", "Training Data Error", "Test Data Error")
