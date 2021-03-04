@@ -5,9 +5,6 @@ from sklearn.neighbors import KNeighborsRegressor
 from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, mean_absolute_error 
 from sklearn.tree import DecisionTreeRegressor
-import pandas as pd
-import matplotlib.pyplot as plt
-import math
 
 
 # Load Data
@@ -46,7 +43,7 @@ def euc_dist(p1, p2, n):
     tot = 0
     for i in range(n):
         tot += (p1[i] - p2[i])**2
-    return math.sqrt(tot)
+    return np.sqrt(tot)
     
 ## Loss Functions
 ### Mean Squared Error
@@ -63,3 +60,16 @@ def abs_error(a,b):
     for i in range(n):
         err += abs(a[i] - b[i])
     return err/n
+
+#Helper funtion to print table with 3 columns in a nice formatter manner
+def prettyPrintTable(table, headerCol1, headerCol2, headerCol3) :
+    for i, d in enumerate(table):
+        if i == 0 :
+            line = '|'.join(str(x).ljust(30) for x in (headerCol1, headerCol2, headerCol3))
+            print(line)
+            print('-' * len(line))
+
+        line = '|'.join(str(x).ljust(30) for x in d)
+        print(line)
+            
+#

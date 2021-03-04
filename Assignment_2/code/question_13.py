@@ -12,12 +12,9 @@ def linear_lasso_reg_real(X_big_trn, y_big_trn, X_big_val, y_big_val):
         linear_reg_trn = lasso_reg.predict(X_big_trn)
         linear_reg_tst = lasso_reg.predict(X_big_val)
         eval_sq_error.append([i, mean_squared_error(linear_reg_trn, y_big_trn), mean_squared_error(linear_reg_tst,y_big_val)])
-    df = pd.DataFrame(np.array(eval_sq_error),columns=['Lambda (l)', 'Training Data Error', 'Test Data Error'])
+    df = np.array(eval_sq_error)
     return(df)
   
 df = linear_lasso_reg_real(X_big_trn, y_big_trn, X_big_val, y_big_val)
 print("MSE for Linear Lasso Regression on Big Data")
-print(df)
-df.plot(x="Lambda (l)", title="MSE for Linear Lasso Regression on Big Data");
-
-plt.show()
+prettyPrintTable(df, "Lambda (l)", "Training Data Error", "Test Data Error")
