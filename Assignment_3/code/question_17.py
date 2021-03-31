@@ -1,11 +1,5 @@
 from question_16 import *
 from preface import *
-from datetime import datetime
-import pandas as pd
-import sys
-import matplotlib.pyplot as plt
-import math
-import multiprocessing
 
 def gradient_descent_train(M) :
     data = np.load("data.npz")
@@ -19,7 +13,6 @@ def gradient_descent_train(M) :
     numIter = 1000
     start = datetime.now()
     start_string = start.strftime("%d/%m/%Y %H:%M:%S")
-    print(f"Time - {start_string}. Starting descent for M={M} now")
     W = np.random.normal(0,1,(M,X.shape[1]))
     b = np.zeros(M)
     c = np.zeros(numLabels)
@@ -40,15 +33,10 @@ def gradient_descent_train(M) :
         c = c - stepSize * avg_dLdc
 
         errors.append(prediction_loss_full(X, Y, W, V, b, c, l))
-
-        if i % 100 == 0 :
-            print(f"{M} --> Iteration {i} done")
         
     end = datetime.now()
     diff = end - start
     elapsed = int((diff.seconds * 1000) + (diff.microseconds / 1000))
-
-    print(f"Total time taken for M = {M} is {diff}")
     return elapsed, errors
 
 if __name__ == '__main__':
