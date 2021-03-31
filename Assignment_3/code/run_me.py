@@ -29,3 +29,9 @@ if __name__ == '__main__':
 
     print("\n\nTotal time taken for 1000 iterations of gradient descent :")
     prettyPrintTable(runTime, ["M","Run time in ms"])
+    a = np.arange(1000)
+    errors = np.array([a, result_list[0][1], result_list[1][1], result_list[2][1]]).T
+    df = pd.DataFrame(np.array(errors),columns=['Iterations', 'Regularized loss for M=5', 'Regularized loss for M=40', 'Regularized loss for M=70'])
+    df.plot(x="Iterations", title="Regularized loss vs Iterations")
+    plt.show() 
+    
