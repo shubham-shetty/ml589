@@ -1,6 +1,6 @@
 from autograd import grad
 
-from code.question_15 import prediction_loss_full
+from question_15 import prediction_loss_full
 
 
 def prediction_grad_full(X, Y, W, V, b, c, l):
