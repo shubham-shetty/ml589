@@ -1,0 +1,357 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{csquotes}
+\usepackage{subfig}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage[margin=1in, left=1.2in, includehead, includefoot]{geometry}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+\graphicspath{{images/}}
+
+\title{%
+\textbf{Assignment 3: Classification \& Model Selection}\\
+\large \textit{\textbf{CS 589 - ML}}}
+\author{Shubham Shetty (shubhamshett@umass.edu) \\
+Brinda Murulidhara (bmurulidhara@umass.edu)\\
+Adarsh Kolya (akolya@umass.edu)}
+\date{\textit{March 2021}}
+
+\begin{document}
+
+    \begin{titlepage}
+        \maketitle
+        \thispagestyle{empty}
+    \end{titlepage}
+
+\section*{\textbf{Preface}}
+Before running our codes, the following packages are imported and test \& training data are assigned to variables. Also, some reusable functions are defined - 
+\lstinputlisting[language=Python]{preface.py}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 1}}
+
+\textbf{Given} - \\
+\-\hspace{1cm} $V = \{0,1\}$\\
+Probabilities for training outputs are-\\
+\-\hspace{1cm}$P(0) = 1/4$\\
+\-\hspace{1cm}$P(1) = 3/4$\\
+Let $D$ be cross entropy and $I$ represent information gain. Then, cross entropy before the split is (assuming log base $e$)-
+\begin{center}
+$D_0= -[\frac{1}{4}log(\frac{1}{4}) + \frac{3}{4}log(\frac{3}{4})] = 0.562$\\    
+\end{center}
+
+\begin{enumerate}
+    \item Split at x = 0.5\\
+    \-\hspace{1cm}$D_{m<0.5} = 0$\\
+    \-\hspace{1cm}$D_{m\geq0.5} = -[\frac{1}{4}log(\frac{1}{4}) + \frac{3}{4}log(\frac{3}{4})] = 0.562$ \\
+    Therefore,\\
+    \-\hspace{1cm}\fbox{$I = 0.562 - 0.562 = 0$}
+    
+    \item Split at x = 1.5\\
+    \-\hspace{1cm}$D_{m<1.5} = -log(1) = 0$\\
+    \-\hspace{1cm}$D_{m\geq1.5} = -[\frac{2}{3}log(\frac{2}{3}) + \frac{1}{3}log(\frac{1}{3})] = 0.636$ \\
+    Therefore,\\
+    \-\hspace{1cm}\fbox{$I = 0.562 - \frac{3}{4}*0.634 = 0.0846$}
+    
+    \item Split at x = 2.5\\
+    \-\hspace{1cm}$D_{m<2.5} = -[\frac{1}{2}log(\frac{1}{2}) + \frac{1}{2}log(\frac{1}{2})] = 0.693$\\
+    \-\hspace{1cm}$D_{m\geq2.5} = -log(1) = 0$ \\
+    Therefore,\\
+    \-\hspace{1cm}\fbox{$I = 0.562 - \frac{1}{2}*0.693 = 0.2155$}
+    
+    \item Split at x = 3.5\\
+    \-\hspace{1cm}$D_{m<3.5} = -[\frac{2}{3}log(\frac{2}{3}) + \frac{1}{3}log(\frac{1}{3})] = 0.636$\\
+    \-\hspace{1cm}$D_{m\geq3.5} = -log(1) = 0$ \\
+    Therefore,\\
+    \-\hspace{1cm}\fbox{$I = 0.562 - \frac{3}{4}*0.634 = 0.0846$}
+    
+    \item Split at x = 4.5\\
+    \-\hspace{1cm}$D_{m<4.5} = -[\frac{1}{4}log(\frac{1}{4}) + \frac{3}{4}log(\frac{3}{4})] = 0.562$\\
+    \-\hspace{1cm}$D_{m\geq4.5} = 0$ \\
+    Therefore,\\
+    \-\hspace{1cm}\fbox{$I = 0.562 - 0.562 = 0$}
+\end{enumerate}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 2}}
+Time complexity to evaluate that classification tree on a single new input-
+\begin{center}
+    $\mathcal{O}(M)$
+\end{center}
+In the worst case, the longest path from  root to leaf of the tree may be traversed to evaluate the classification tree on a single new input. The longest root to leaf path is equal to the depth (M) of the tree.
+
+\cleardoublepage
+
+\section*{\textbf{Answer 3}}
+Time complexity to train a classification stump-
+%might be O(DNN)
+\begin{center}
+    $\mathcal{O}(D N log N)$
+\end{center}
+There are D dimensions, and it takes N log N time for each sorting operation. Checking all the split points for a given dimension takes N time once the data is sorted.
+\\\\
+\noindent Without any optimisation, the complexity is $\mathcal{O}(DN^2)$. There are D dimensions and checking all the split points for a given dimension takes $N^2$ time once the data is sorted.
+
+\cleardoublepage
+
+\section*{\textbf{Answer 4}}
+Following method trains a classification tree to predict outputs for each of the following possible depths: {1,3,6,9,12,14}. Then using 5-fold cross validation out of sample classification error is determined. 
+\newline These methods use \lstinline{DecisionTreeClassifier} and \lstinline{KFold} modules from \lstinline{scikit-learn}.
+\lstinputlisting[language=Python]{question_4.py}
+The below table lists the out of sample classification error for different depths.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|} \hline
+    \textbf{Depth} &  \textbf{Mean classification error}\\ \hline
+ 1        &     0.6365   \\ \hline
+ 3        &     0.54316667   \\ \hline
+ 6        &     0.498   \\ \hline
+ 9        &     0.50266667   \\ \hline
+ 12       &     0.51783333   \\ \hline
+ 14       &     0.50866667   \\ \hline
+    \end{tabular}
+    \caption{Mean out of sample classification error for Classification Tree}
+\end{table}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 5}}
+\begin{enumerate}
+    \item We chose depth of tree to be \textbf{6}.
+    \item Our estimated Generalized error using 5-fold validation for this depth was \textbf{0.498}
+    \item On the public part of the leader-board the accuracy observed was \textbf{0.49722}
+\end{enumerate}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 6}}
+The time complexity of KNN classifier that uses a brute force approach to pick K nearest points from N points is :
+\begin{center} $\mathcal{O}(ND + NK)$ \end{center}
+In a KNN classifier, the steps involved are as below :
+\begin{enumerate}
+    \item Calculate distance of N points from the given point - $\mathcal{O}(ND)$
+    \item Pick K smallest distances from N distances - $\mathcal{O}(NK)$
+    \item Find label with max frequency in K outputs - $\mathcal{O}(K)$
+\end{enumerate}
+The over all time complexity - $\mathcal{O}(ND + NK)$
+
+\cleardoublepage
+
+\section*{\textbf{Answer 7}}
+Following methods do nearest-neighbor prediction for each of the following possible values of K: {1, 3, 5, 7, 9, 11}. Then using 5-fold cross validation out of sample classification error is determined. 
+\newline These methods use \lstinline{KNeighborsClassifier} and \lstinline{KFold} modules from \lstinline{scikit-learn}.
+\lstinputlisting[language=Python]{question_7.py}
+The below table lists the out of sample classification error for different values of K.
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|} \hline
+    \textbf{K} &  \textbf{Mean classification error}\\ \hline
+ 1        &     0.456667   \\ \hline
+ 3        &     0.453167   \\ \hline
+ 5        &     0.449000   \\ \hline
+ 7        &     0.439000   \\ \hline
+ 9        &     0.432667   \\ \hline
+ 11       &     0.432167   \\ \hline
+    \end{tabular}
+    \caption{Mean out of sample classification error for KNN classifier}
+\end{table}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 8}}
+\begin{enumerate}
+    \item We chose K to be \textbf{11}.
+    \item Generalized error using 5-fold validation for this value of K was \textbf{0.432167}.
+    \item On the public part of the leader-board the accuracy observed was \textbf{0.61666}.
+\end{enumerate}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 9}}
+The methods defined below perform logistic regression and hinge classification respectively for the given datasets with $\lambda \in \{10^{-4},10^{-2},1,10,100\}$, validate the results according to 5-fold cross validation , and print the required metrics (0-1 misclassification error, hinge loss, and logistic loss.)\\
+\newline These methods use \lstinline{LogisticRegression}, \lstinline{LinearSVC} and \lstinline{KFold} modules from \lstinline{scikit-learn}.\\
+\lstinputlisting[language=Python]{question_9.py}
+
+\noindent The below tables are the metrics observed for \textbf{logistic regression} model - 
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|} \hline
+\textbf{Lambda} & \textbf{Error Value} \\ \hline
+0.0001		& 0.41233333333333333 \\ \hline
+0.01		& 0.4121666666666667 \\ \hline
+1			& 0.41 \\ \hline
+10			& 0.3956666666666667 \\ \hline
+100			& 0.38666666666666666 \\ \hline
+    \end{tabular}
+    \caption{0-1 Misclassification Error for Logistic Regression}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|} \hline
+\textbf{Lambda} & \textbf{Log Loss} \\ \hline
+0.0001	&	1.9744296274108781\\ \hline
+0.01	&	1.9387817406836756\\ \hline
+1		&	1.8253285331018811\\ \hline
+10		&	1.483022446742442\\ \hline
+100		&	1.1412247852627455\\ \hline
+    \end{tabular}
+    \caption{Log Loss for Logistic Regression}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|} \hline
+\textbf{Lambda} & \textbf{Hinge Loss} \\ \hline
+0.0001		& 1.1703172713760126\\ \hline
+0.01		& 1.1645862979908836\\ \hline
+1			& 1.1242905902918365\\ \hline
+10			& 0.9723185930244626\\ \hline
+100			& 0.8656582863025036\\ \hline
+    \end{tabular}
+    \caption{Hinge Loss for Logistic Regression}
+\end{table}
+
+\noindent The below tables are the metrics observed for \textbf{hinge classification} model - 
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|} \hline
+\textbf{Lambda} & \textbf{Error Value} \\ \hline
+0.0001	&	0.48949999999999994\\ \hline
+0.01	&	0.49416666666666664\\ \hline
+1		&	0.4491666666666667\\ \hline
+10		&	0.4073333333333333\\ \hline
+100		&	0.39899999999999997\\ \hline
+    \end{tabular}
+    \caption{0-1 Misclassification Error for Hinge Classification}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|} \hline
+\textbf{Lambda} & \textbf{Log Loss} \\ \hline
+0.0001		& 1.658265210815916 \\ \hline
+0.01		& 1.6599533809685176\\ \hline
+1			& 1.5731331893304552\\ \hline
+10			& 1.1616912901671272\\ \hline
+100			& 1.0157286277097335\\ \hline
+    \end{tabular}
+    \caption{Log Loss for Hinge Classification}
+\end{table}
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|} \hline
+\textbf{Lambda} & \textbf{Hinge Loss} \\ \hline
+0.0001	&	1.4622453356275216\\ \hline
+0.01	&	1.4936376941641398\\ \hline
+1		&	1.3380753667748453\\ \hline
+10		&	0.990812192361957\\ \hline
+100		&	0.871463119505194\\ \hline
+    \end{tabular}
+    \caption{Hinge Loss for Hinge Classification}
+\end{table}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 10}}
+%\lstinputlisting[language=Python]{question_10.py}
+
+\begin{enumerate}
+    \item We chose to use logistic loss model, with $\lambda$ set to be \textbf{100}.
+    \item Generalized error using 5-fold validation for this value of $\lambda$ was \textbf{0.3867}. Log loss for this model was \textbf{1.1412}, and hinge loss for this model was \textbf{0.8657}.
+    \item On the public part of the leader-board, the accuracy observed was \textbf{0.62500}.
+\end{enumerate}
+
+\cleardoublepage
+
+
+\section*{\textbf{Answer 11}}
+\lstinputlisting[language=Python]{question_11.py}
+
+\cleardoublepage
+\section*{\textbf{Answer 12}}
+\lstinputlisting[language=Python]{question_12.py}
+
+\cleardoublepage
+\section*{\textbf{Answer 13}}
+\begin{enumerate}
+    \item $\frac{dL}{dW}$ = ${\left(\begin{array}{cc}
+        -0.18070664 & -0.36141328\\
+        -0.18070664 & -0.36141328\\
+        0.0 & 0.0\\ 
+        \end{array}\right)}$
+    \item $\frac{dL}{dV}$ = ${\left(\begin{array}{ccc}
+        -0.45257413 & 0.45257413 & 0.48201379\\
+        0.45257413 & -0.45257413 & -0.48201379\\
+        \end{array}\right)}$
+    \item $\frac{dL}{db}$ = ${\left[\begin{array}{ccc}
+        -0.18070664 & -0.18070664 & 0.0\\
+        \end{array}\right]}$
+    \item $\frac{dL}{dc}$ = ${\left[\begin{array}{cc}
+        0.5 & -0.5\\
+        \end{array}\right]}$
+\end{enumerate}
+
+\cleardoublepage
+\section*{\textbf{Answer 14}}
+\lstinputlisting[language=Python]{question_14.py}
+\cleardoublepage
+\section*{\textbf{Answer 15}}
+\lstinputlisting[language=Python]{question_15.py}
+\cleardoublepage
+\section*{\textbf{Answer 16}}
+\lstinputlisting[language=Python]{question_16.py}
+\cleardoublepage
+\section*{\textbf{Answer 17}}
+\begin{enumerate}
+\item Below is the table describing the total training time (in ms) for all iterations.
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{|c|c|} \hline
+    \textbf{M} & \textbf{Total time taken in Milliseconds} \\ \hline
+    5	&	23919335\\ \hline
+    40	&	24029664\\ \hline
+    70	&	24103272\\ \hline
+        \end{tabular}
+        \caption{Total time taken for 1000 iterations of gradient descent}
+    \end{table}
+\item Plot of regularized loss as a function of number of iterations -
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.65]{gradientDescent.jpeg}
+    \end{figure}
+\end{enumerate}
+\end{document}
