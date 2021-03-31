@@ -20,7 +20,7 @@ def gradient_descent_train(M) :
     avg_dLdW = avg_dLdV = avg_dLdb = avg_dLdc = 0
     for i in range(numIter) :
         # ave_grad = (1 - momentum) * ave_grad + momentum * ∇h(w)
-        dLdW, dLdV, dLdb, dLdc = prediction_grad_autograd_full(X,Y,W,V,b,c,l)
+        dLdW, dLdV, dLdb, dLdc = prediction_grad_full(X,Y,W,V,b,c,l)
         avg_dLdW = (1 - momentum) * avg_dLdW + momentum * dLdW
         avg_dLdV = (1 - momentum) * avg_dLdV + momentum * dLdV
         avg_dLdb = (1 - momentum) * avg_dLdb + momentum * dLdb
