@@ -1,17 +1,6 @@
-from autograd import grad, numpy as np
+from autograd import grad
 
-
-def prediction_loss(x, y, W, V, b, c):
-    Wx = np.matmul(W, x)
-    b_plus_Wx = np.add(b, Wx)
-    sigma = np.tanh(b_plus_Wx)
-    f = np.add(c, np.matmul(V, sigma))
-    softmax = 0
-    for item in f:
-        softmax += np.exp(item)
-
-    softmax = np.log(softmax)
-    return -f[y] + softmax
+from code.question_11 import prediction_loss
 
 
 def prediction_grad_autograd(x, y, W, V, b, c):
