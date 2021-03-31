@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn.model_selection import KFold
 from sklearn.tree import DecisionTreeClassifier
+from preface import prettyPrintTable
 
 
 def train_classifier(X_trn, y_trn, depths):
@@ -28,4 +29,5 @@ def print_classifier_errors():
     data = np.load("data.npz")
     X_trn = data["X_trn"]
     y_trn = data["y_trn"]
-    print(train_classifier(X_trn, y_trn, {1, 3, 6, 9, 12, 14}))
+    errors = train_classifier(X_trn, y_trn, {1, 3, 6, 9, 12, 14})
+    prettyPrintTable(errors,["Depth", "Mean classification error"])

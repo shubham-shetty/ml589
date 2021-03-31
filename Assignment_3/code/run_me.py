@@ -3,16 +3,23 @@ from preface import *
 from question_7 import KNNModelSelection
 from question_13 import printGradientValues
 from question_17 import gradient_descent_train
+from question_9 import logistic_regressor, hinge_classifier
 
 if __name__ == '__main__':
     # To compute errors for question 4
+    print("Mean out of sample classification error for classification tree")
     print_classifier_errors()
 
     # To generate table for question 7
+    print()
     KNNModelSelection()
 
+    # Question 9
+    logistic_regressor()
+    hinge_classifier()
+
     # To generate gradients for question 13
-    print("Answer to question 13 -")
+    print("\nAnswer to question 13 -")
     printGradientValues()
 
     # To compute gradients for question 16
