@@ -1,16 +1,12 @@
-import autograd.numpy as np
 from autograd import grad
-from question_15 import prediction_loss_full
+
+from code.question_15 import prediction_loss_full
 
 
-def prediction_grad_autograd_full(X,Y,W,V,b,c,l):
-    dLdc_func = grad(prediction_loss_full,5)
-    dldc = dLdc_func(X,Y,W,V,b,c,l)
-    dLdW_func = grad(prediction_loss_full,2)
-    dldW = dLdW_func(X,Y,W,V,b,c,l)
-    dLdb_func = grad(prediction_loss_full,4)
-    dLdb = dLdb_func(X,Y,W,V,b,c,l)
-    dLdV_func = grad(prediction_loss_full,3)
-    dldV = dLdV_func(X,Y,W,V,b,c,l)
+def prediction_grad_full(X, Y, W, V, b, c, l):
+    dLdW = grad(prediction_loss_full, 2)(X, Y, W, V, b, c, l)
+    dLdV = grad(prediction_loss_full, 3)(X, Y, W, V, b, c, l)
+    dLdb = grad(prediction_loss_full, 4)(X, Y, W, V, b, c, l)
+    dLdc = grad(prediction_loss_full, 5)(X, Y, W, V, b, c, l)
 
-    return dldW, dldV, dLdb, dldc
+    return dLdW, dLdV, dLdb, dLdc
