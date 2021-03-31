@@ -22,11 +22,10 @@ def train_classifier(X_trn, y_trn, depths):
             error += 1 - sum([1 for actual, predicted in zip(y_test, predictions) if actual == predicted]) / len(X_test)
         errors[ind] = depth, error / n_splits
 
-    print(errors)
+    return errors
 
-
-data = np.load("data.npz")
-X_trn = data["X_trn"]
-y_trn = data["y_trn"]
-X_tst = data["X_tst"]
-train_classifier(X_trn, y_trn, {1, 3, 6, 9, 12, 14})
+def print_classifier_errors():
+    data = np.load("data.npz")
+    X_trn = data["X_trn"]
+    y_trn = data["y_trn"]
+    print(train_classifier(X_trn, y_trn, {1, 3, 6, 9, 12, 14}))
