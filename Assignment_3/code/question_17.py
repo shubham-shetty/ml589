@@ -3,7 +3,7 @@ from datetime import datetime
 import pandas as pd
 import sys
 
-def gradient_descent_train() :
+def gradient_descent_train(M) :
     data = np.load("data.npz")
     X = data["X_trn"]
     Y = data["y_trn"]
@@ -11,7 +11,7 @@ def gradient_descent_train() :
     momentum = 0.1
     l = 1
     stepSize = 0.0001
-    M = int(sys.argv[1])
+    # M = int(sys.argv[1])
 
     start = datetime.now()
     start_string = start.strftime("%d/%m/%Y %H:%M:%S")
@@ -23,14 +23,14 @@ def gradient_descent_train() :
     l = 1
     avg_dLdW = avg_dLdV = avg_dLdb = avg_dLdc = 0
     errors = []
-    for i in range(50) :
+    for i in range(1000) :
         # ave_grad = (1 - momentum) * ave_grad + momentum * ∇h(w)
         dLdW, dLdV, dLdb, dLdc = prediction_grad_autograd_full(X,Y,W,V,b,c,l)
         avg_dLdW = (1 - momentum) * avg_dLdW + momentum * dLdW
         avg_dLdV = (1 - momentum) * avg_dLdV + momentum * dLdV
         avg_dLdb = (1 - momentum) * avg_dLdb + momentum * dLdb
         avg_dLdc = (1 - momentum) * avg_dLdc + momentum * dLdc
-        
+
         # w = w - stepSize * ave_grad
         W = W - stepSize * avg_dLdW
         V = V - stepSize * avg_dLdV
@@ -38,11 +38,20 @@ def gradient_descent_train() :
         c = c - stepSize * avg_dLdc
 
         errors.append([i, prediction_loss_full(X, Y, W, V, b, c, l)])
-        
+
     end = datetime.now()
+    with open(str(M)+'_errors.txt', 'w') as f:
+        f.write(repr(errors))
+
     print(f"Total time taken for M = {M} is {end - start}")
-    df = pd.DataFrame(np.array(errors),columns=['Iterations', 'Regularized loss'])
-    df.plot(x="Iterations", title="Regularized loss vs Iterations")
+    # df = pd.DataFrame(np.array(errors),columns=['Iterations', 'Regularized loss'])
+    # df.plot(x="Iterations", title="Regularized loss vs Iterations")
 
 print("Hello")
-gradient_descent_train()
+
+import multiprocessing
+
+
+if __name__ == '__main__':
+    pool = multiprocessing.Pool(processes=3)
+    pool.map(gradient_descent_train, [5, 40, 70])
