@@ -1,7 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-from helper import X_trn, Y_trn, get_poly_expansion
+from preface import X_trn, Y_trn, get_poly_expansion
 from question_6 import train_basis_expanded_ridge
 
 # fixme 10 - singular matrix error
@@ -21,3 +21,4 @@ for P in [1, 2, 3, 5, 10]:
     plt.xlim([0, 15])
     plt.xticks(np.arange(0, 16, 1))
     plt.show()
+
