@@ -6,7 +6,7 @@ def train_basis_expanded_ridge(X, Y, l, h):
 
     C = np.zeros((H[0].shape[0], H[0].shape[0]))
     for item in H:
-        C = np.add(C, np.matmul(item, np.transpose(item)))
+        C = np.add(C, np.matmul(np.array([item]).T, np.array([item])))
 
     I = np.identity(len(C))
 
