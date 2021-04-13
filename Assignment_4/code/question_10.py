@@ -1,6 +1,6 @@
 from preface import *
 
-def train_kernel_ridge(X,Y,λ,k) :
+def train_kernel_ridge(X,Y,l,k) :
     N = X.shape[0]
     
     # Compute K
@@ -9,5 +9,5 @@ def train_kernel_ridge(X,Y,λ,k) :
         for m in range(N) :
             K[n][m] = k(X[n], X[m])
 
-    α = np.linalg.solve(K + λ*np.identity(N), Y)
-    return α
+    a = np.linalg.solve(K + l*np.identity(N), Y)
+    return a

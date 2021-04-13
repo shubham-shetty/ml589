@@ -9,12 +9,12 @@ from question_11 import eval_kernel_ridge
 # fixme 10 - singular matrix error
 for P in [1, 2, 3, 5, 10]:
     k = get_poly_kernel(P)
-    α = train_kernel_ridge(X_trn, Y_trn, 0.000001, k)
+    a = train_kernel_ridge(X_trn, Y_trn, 0.1, k)
     print(f"P: {P}\n")
 
     Y = []
     for i in range(len(X_trn)):
-        Y.append(eval_kernel_ridge(X_trn, X_trn[i], α, k))
+        Y.append(eval_kernel_ridge(X_trn, X_trn[i], a, k))
     Y = np.array(Y)
 
     plt.scatter(X_trn, Y_trn)
@@ -24,4 +24,4 @@ for P in [1, 2, 3, 5, 10]:
     plt.ylabel("y")
     plt.xticks(np.arange(0, 16, 1))
     plt.show()
-
+    
