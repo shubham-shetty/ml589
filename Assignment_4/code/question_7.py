@@ -15,8 +15,9 @@ for P in [1, 2, 3, 5, 10]:
         Y.append(np.dot(W, H[i]))
     Y = np.array(Y)
 
-    plt.scatter(X_trn, Y_trn)
-    plt.scatter(X_trn, Y)
+    plt.scatter(X_trn, Y_trn, label="Training data")
+    plt.scatter(X_trn, Y, label="Learned function prediction")
+    plt.legend(loc="upper left")
     plt.xlim([0, 15])
     plt.xlabel("x")
     plt.ylabel("y")
