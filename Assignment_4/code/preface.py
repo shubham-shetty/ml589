@@ -16,3 +16,8 @@ X_trn = data['X_trn']
 Y_trn = data['Y_train']
 X_val = data['X_val']
 Y_val = data['Y_val']
+
+data_real = np.load("data_real.npz")
+X_trn_real = data_real['x_trn']
+Y_trn_real = data_real['y_trn']
+X_val_real = data_real['x_tst']
