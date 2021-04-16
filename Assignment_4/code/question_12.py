@@ -32,3 +32,5 @@ def kernel_ridge_reg():
         plt.xticks(np.arange(0, 16, 1))
         plt.legend()
         plt.show()
+
+kernel_ridge_reg()

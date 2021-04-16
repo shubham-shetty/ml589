@@ -30,5 +30,6 @@ def compute_hinge_loss(P):
         for l in [2, 20, 200]:
             loss[i + 1].append(round(train_svm_poly(X_trn=X_trn_real, y_trn=Y_trn_real, l=l, P=P, g=g),10))
 
+    print(f"\n\nMean validation-set hinge loss using poly kernel of degree {P}")
     for row in loss:
         print('\t'.join([str(elem).center(24) for elem in row]))

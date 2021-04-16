@@ -2,7 +2,6 @@ from sklearn import svm
 from sklearn.metrics import hinge_loss
 from sklearn.model_selection import KFold
 
-
 def train_svm(X_trn, y_trn):
     l_vals = [2, 20, 200]
     splits = 5

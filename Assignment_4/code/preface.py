@@ -10,7 +10,7 @@ from sklearn.svm import SVC
 
 # Load Data
 ## 1D Data
-data = np.load("data_synth.npz")
+data_synth = np.load("data_synth.npz")
 X_trn = data_synth['X_trn']           # 1D Input Training Dataset
 Y_trn = data_synth['Y_train']         # 1D Output Training Dataset
 X_val = data_synth['X_val']           # Test Input Dataset

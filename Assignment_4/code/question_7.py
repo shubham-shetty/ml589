@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 
 from preface import X_trn, Y_trn, get_poly_expansion
 from question_6 import train_basis_expanded_ridge
+from question_5 import eval_basis_expanded_ridge
 
 def basis_expanded_ridge_reg():
     for P in [1, 2, 3, 5, 10]:
@@ -29,3 +30,5 @@ def basis_expanded_ridge_reg():
         plt.xticks(np.arange(0, 16, 1))
         plt.legend()
         plt.show()
+
+basis_expanded_ridge_reg()

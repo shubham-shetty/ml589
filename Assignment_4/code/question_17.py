@@ -4,14 +4,14 @@ from sklearn.model_selection import KFold
 from preface import X_trn_real, Y_trn_real
 from sklearn.metrics import hinge_loss
 
-def train_radial_svm(X_trn, y_trn):
+def train_radial_svm():
     n_splits = 5
     kf = KFold(n_splits=n_splits, random_state=None, shuffle=True)
     loss = [['gamma/lambda', 2, 20, 200], [1], [0.01], [0.001]]
     
     for i, g in enumerate([1, 0.01, 0.001]):
         for l in [2,20,200] :
-            clf = SVC(C=l, gamma=g)
+            clf = SVC(C=1/(2*l), gamma=g)
             error = 0
             errorTable = []
             err_hinge_loss = 0
@@ -28,5 +28,8 @@ def train_radial_svm(X_trn, y_trn):
             
             loss[i + 1].append(round(error/5,10))
     
+    print(f"\n\nMean validation-set hinge loss using radial kernel")
     for row in loss:
             print('\t'.join([str(elem).center(24) for elem in row]))
+
+train_radial_svm()
