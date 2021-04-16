@@ -1,3 +1,6 @@
+from preface import *
+from question_8 import *
+
 x  = 0.5
 xp = 0.7
 k  = get_poly_kernel(5)
