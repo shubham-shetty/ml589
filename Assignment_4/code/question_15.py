@@ -20,14 +20,15 @@ def train_svm_poly(X_trn, y_trn, l, P, g):
         predictions = clf.decision_function(X_test)
 
         sum_hinge_loss += hinge_loss(y_test, predictions)
-    return sum_hinge_loss / splits
+    avg_hinge_loss = sum_hinge_loss / splits
+    return avg_hinge_loss
 
 
 def compute_hinge_loss(P):
-    loss = [['gamma/lambda', 2, 20, 200], [0.001], [0.01], [1]]
+    loss = [['gamma\lambda', 2, 20, 200], [0.001], [0.01], [1]]
     for i, g in enumerate([0.001, 0.01, 1]):
         for l in [2, 20, 200]:
-            loss[i + 1].append(train_svm_poly(X_trn=X_trn_real, y_trn=Y_trn_real, l=l, P=P, g=g))
+            loss[i + 1].append(round(train_svm_poly(X_trn=X_trn_real, y_trn=Y_trn_real, l=l, P=P, g=g),10))
 
     for row in loss:
         print('\t'.join([str(elem).center(24) for elem in row]))
