@@ -4,6 +4,9 @@ import question_7
 # Kernel expanded ridge regression for various values of P
 import question_12
 
+# Estimated hinge loss for linear kernel
+import question_14
+
 from question_15 import compute_hinge_loss
 
 # Estimated hinge loss for P=3

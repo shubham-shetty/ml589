@@ -2,6 +2,9 @@ from sklearn import svm
 from sklearn.metrics import hinge_loss
 from sklearn.model_selection import KFold
 
+from preface import Y_trn_real, X_trn_real
+
+
 def train_svm(X_trn, y_trn):
     l_vals = [2, 20, 200]
     splits = 5
@@ -20,5 +23,9 @@ def train_svm(X_trn, y_trn):
             predictions = clf.decision_function(X_test)
 
             sum_hinge_loss += hinge_loss(y_test, predictions)
-        avg_hinge_loss = sum_hinge_loss / splits 
+        avg_hinge_loss = sum_hinge_loss / splits
         print(f"{l}\t\t{avg_hinge_loss}")
+
+
+print("\n\nMean validation-set hinge loss using linear kernel")
+train_svm(X_trn_real, Y_trn_real)
