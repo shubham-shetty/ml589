@@ -6,7 +6,8 @@ from sklearn import svm
 from sklearn.model_selection import KFold
 from sklearn.metrics import hinge_loss
 from sklearn.svm import SVC
-
+import numpy as np
+import csv
 
 # Load Data
 ## 1D Data
@@ -29,3 +30,12 @@ def get_poly_expansion(P):
         tmp = [np.sqrt(comb(P, p)) * X ** p for p in range(P + 1)]
         return np.vstack(tmp).T
     return expand
+
+def write_csv(y_pred, filename):
+    """Write a 1d numpy array to a Kaggle-compatible .csv file"""
+    with open(filename, 'w') as csv_file:
+        csv_writer = csv.writer(csv_file)
+        csv_writer.writerow(['Id', 'Category'])
+        for idx, y in enumerate(y_pred):
+            y = int(y)
+            csv_writer.writerow([idx, y])
