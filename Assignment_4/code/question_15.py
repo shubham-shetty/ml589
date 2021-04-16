@@ -7,7 +7,7 @@ from preface import Y_trn_real, X_trn_real
 def train_svm_poly(X_trn, y_trn, l, P, g):
     splits = 5
     kf = KFold(n_splits=splits, shuffle=True)
-    clf = svm.SVC(kernel='poly', C=1 / l, degree=P, coef0=g)
+    clf = svm.SVC(kernel='poly', C=1 / l, degree=P, coef0=g, gamma=1)
     hinge_loss = 0
     for train_index, test_index in kf.split(X_trn):
         # Split train-test
