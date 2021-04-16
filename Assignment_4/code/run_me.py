@@ -11,3 +11,6 @@ compute_hinge_loss(3)
 
 # Estimated hinge loss for P=5
 compute_hinge_loss(5)
+
+# Estimated hinge loss for Radial Basis Function
+import question_17
