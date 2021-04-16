@@ -6,8 +6,13 @@ from question_6 import train_basis_expanded_ridge
 
 def basis_expanded_ridge_reg():
     for P in [1, 2, 3, 5, 10]:
+        # Define polynomial basis expansion function
         h = get_poly_expansion(P)
+        
+        # Train basis expanded ridge regression function
         W = train_basis_expanded_ridge(X_trn, Y_trn, 0.1, h)
+        
+        # Print optimal weights and generate plot
         print(f"P: {P}\nW: {W}\n")
         Y = []
         x_new = np.linspace(0,15,200)
