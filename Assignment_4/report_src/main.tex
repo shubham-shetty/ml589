@@ -1,0 +1,409 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{csquotes}
+\usepackage{subfig}
+\usepackage{diagbox}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage[margin=1in, left=1.2in, includehead, includefoot]{geometry}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+\graphicspath{{images/}}
+
+\title{%
+\textbf{Assignment 4: Kernels}\\
+\large \textit{\textbf{CS 589 - ML}}}
+\author{Shubham Shetty (shubhamshett@umass.edu) \\
+Brinda Murulidhara (bmurulidhara@umass.edu)\\
+Adarsh Kolya (akolya@umass.edu)}
+\date{\textit{April 2021}}
+
+\begin{document}
+
+    \begin{titlepage}
+        \maketitle
+        \thispagestyle{empty}
+    \end{titlepage}
+
+\section*{\textbf{Preface}}
+Before running our codes, the following packages are imported and test \& training data are assigned to variables. Also, some reusable functions are defined - 
+\lstinputlisting[language=Python]{preface.py}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 1}}
+
+The objective is to find a vector $w^*$ that minimizes :
+\begin{center}
+    $\mathrm{\sum_{n=1}^N \left(\textit{w} \cdot x^{(n)} - y^{(n)}\right)^2 + \lambda \Vert \textit{w} \Vert ^2}$
+\end{center}
+\hfill\break
+Let's rewrite this in matrix form. Let $y$ be a single vector containing all of our outputs:
+\begin{center}
+    $y=(y^{(1)}, ... , y^{(N)})$
+\end{center}
+Consider X to be a matrix with N rows that is formed by $x^{(1)}, x^{(2)}...x^{(N)}$. 
+\begin{center}
+    $X=\begin{bmatrix}
+    (x^{(1)})^\top \\
+    \dots\\
+    (x^{(N)})^\top\\
+    \end{bmatrix}$
+\end{center}
+\hfill\break
+The above equation $R(w)$ can be rewritten as :
+\begin{equation*}
+\begin{split}
+    R(w) {} & = \mathrm{\Vert X \cdot \textit{w} - y \Vert ^2 + \lambda \Vert \textit{w} \Vert ^2} \\
+            & = \mathrm {\left(X\cdot \textit{w} - y\right)^\top\left(X\cdot \textit{w} - y\right) + \lambda \textit{w}^\top \textit{w}}
+\end{split}
+\end{equation*}
+At \textit{$w^*$}, 
+\begin{equation*}
+\begin{split}
+    &\mathrm{\nabla R(w^*) = 0} \\
+    &\mathrm{2 X^\top  (X \textit{w}^* - y)+2 \lambda  \textit{w}^* = 0} \\
+    &\mathrm{X^\top X \textit{w}^* + \lambda \textit{w}^* = X^\top y} \\
+    &\mathrm{(X^\top X + \lambda I) \cdot \textit{w}^* = X^\top y} \\
+\end{split}
+\end{equation*}
+Hence,
+\begin{center} 
+    $\mathrm{\textit{w}^* = (X^\top X + \lambda I)^{-1} X^\top y}$
+\end{center}
+The above can be rewritten as :
+\begin{center}
+    $\mathrm{w^* = \left(\sum_{n=1}^N \left(x^{(n)}\right) \left( x^{(n)}\right)^\top + \lambda I \right)^{-1} \sum_{n=1}^N x^{(n)} y^{(n)}.}$
+\end{center}
+
+\cleardoublepage
+\section*{\textbf{Answer 2}}
+The objective is to find a vector $w^*$ that minimizes :
+\begin{center}
+    $\mathrm{\sum_{n=1}^N \left(\textit{w} \cdot \textit{h}(x^{(n)}) - y^{(n)}\right)^2 + \lambda \Vert \textit{w} \Vert ^2}$
+\end{center}
+\hfill\break
+Let's rewrite this in matrix form. Let $y$ be a single vector containing all of our outputs:
+\begin{center}
+    $y=(y^{(1)}, ... , y^{(N)})$
+\end{center}
+Consider H to be a matrix with N rows that is formed by $h(x^{(1)}), h(x^{(2)})...h(x^{(N)})$. 
+\begin{center}
+    $H=\begin{bmatrix}
+    h(x^{(1)})^\top \\
+    \dots\\
+    h(x^{(N)})^\top\\
+    \end{bmatrix}$
+\end{center}
+\hfill\break
+The above equation $R(w)$ can be rewritten as :
+\begin{equation*}
+\begin{split}
+    R(w) {} & = \mathrm{\Vert H \cdot \textit{w} - y \Vert ^2 + \lambda \Vert \textit{w} \Vert ^2} \\
+            & = \mathrm {\left(H\cdot \textit{w} - y\right)^\top\left(H\cdot \textit{w} - y\right) + \lambda \textit{w}^\top \textit{w}}
+\end{split}
+\end{equation*}
+At \textit{$w^*$}, 
+\begin{equation*}
+\begin{split}
+    &\mathrm{\nabla R(w^*) = 0} \\
+    &\mathrm{2 H^\top  (H \textit{w}^* - y)+2 \lambda  \textit{w}^* = 0} \\
+    &\mathrm{H^\top H \textit{w}^* + \lambda \textit{w}^* = H^\top y} \\
+    &\mathrm{(H^\top H + \lambda I) \cdot \textit{w}^* = H^\top y} \\
+\end{split}
+\end{equation*}
+Hence,
+\begin{center} 
+    $\mathrm{\textit{w}^* = (H^\top H + \lambda I)^{-1} H^\top y}$
+\end{center}
+The above can be rewritten as :
+\begin{center}
+    $\mathrm{w^* = \left(\sum_{n=1}^N \left(h(x^{(n)})\right) \left( h(x^{(n)})\right)^\top + \lambda I \right)^{-1} \sum_{n=1}^N h(x^{(n)}) y^{(n)}.}$
+\end{center}
+\cleardoublepage
+
+\section*{\textbf{Answer 3}}
+The objective is to represent $y^\text{pred}=w^* \cdot h(x^\text{pred})$ in terms of some kernel function $k$ such that $k(x,x')=h(x) \cdot h(x')$ without referencing $h(\cdot)$ or $w^*$.\\
+
+\noindent From previous solution, we know that
+\begin{center} 
+    $\mathrm{\textit{w}^* = (H^\top H + \lambda I)^{-1} H^\top y}$
+\end{center}
+\noindent where $H$ is a matrix with $N$ rows that is formed by $h(x^{(1)}), h(x^{(2)})...h(x^{(N)})$ and $y$ is a single vector containing all of our outputs.\\
+
+\noindent It is known that for given matrices $P$ \& $Q$,
+\begin{center} 
+    $(PQ + I)^{-1}P = P(QP + I)^{-1}$
+\end{center}
+\noindent Using this equality, we get
+\begin{center} 
+    $\mathrm{\textit{w}^* = H^\top(H H^\top + \lambda I)^{-1} y}$
+\end{center}
+An element at position (n,m) in $H H^\top$ is equal to $h(x^{(n)}) \cdot h(x^{(m)})$. \\
+\\
+Let us define a matrix K with an every element $K_{nm} = k(x^{(n)} , x^{(m)})$.\\
+\\
+Since $h(x^{(n)}) \cdot h(x^{(m)}) = k(x^{(n)} , x^{(m)})$ , $H H^\top = K$ \\
+\\
+Let us define $\alpha = (K + \lambda I)^{-1} y$. Hence,
+\begin{center} 
+    $\mathrm{\textit{w}^* = H^\top \alpha = h(x) \cdot \alpha}$
+\end{center}
+\noindent Naive prediction can be made as,
+\begin{center} 
+    $y^\text{pred}=w^* \cdot h(x^\text{pred})$
+\end{center}
+Substituting value of $w^*$ we get,
+\begin{center} 
+    $y^\text{pred}= h(x) \cdot \alpha \cdot h(x^\text{pred})$\\
+    $\implies y^\text{pred} = \alpha \cdot h(x) \cdot h(x^\text{pred})$\\
+    $\implies y^\text{pred} = \alpha \cdot k(x, x^\text{pred})$
+\end{center}
+\noindent Hence $y^\text{pred} = \alpha \cdot k(x, x^\text{pred})$, where $\alpha$ and the kernel function are both independent of $w^*$ and the basis expansion function $h(\cdot)$.
+\cleardoublepage
+\section*{\textbf{Answer 4}}
+Given that 
+\begin{equation*}
+    h(x) = [c_0, c_1 x, c_2 x^2, \cdots, c_P x^P], c_p = \sqrt {\binom{P}{p}}
+\end{equation*}
+Claim : $k(x , x') = \left(1 + x \cdot x' \right)^P$ \newline
+\\
+Proof :
+\begin{equation}
+    \begin{split}
+        h(x) \cdot h(x') {} 
+        & = [c_0, c_1 x, c_2 x^2, \cdots, c_P x^P] . [c_0, c_1 x', c_2 x'^2, \cdots, c_P x'^P] \\
+        & = \sum_{p=0}^P \left(c_n^2 x^n x'^n \right) \\
+        & = \sum_{p=0}^P \binom{P}{p}(x \cdot x')^p \\
+    \end{split}
+\end{equation}
+Equation (1) can be simplified using binomial theorem to -
+\begin{equation*}
+    \begin{split}
+        h(x) \cdot h(x') {} 
+        & = \left(1 + x \cdot x' \right)^P \\
+        & = k(x , x') \newline
+    \end{split}
+\end{equation*}
+\begin{center}
+    \boxed{k(x , x') = \left(1 + x \cdot x' \right)^P }
+\end{center}
+\cleardoublepage
+
+\section*{\textbf{Answer 5}}
+\lstinputlisting[language=Python]{question_5.py}
+\cleardoublepage
+
+\section*{\textbf{Answer 6}}
+\lstinputlisting[language=Python]{question_6.py}
+\cleardoublepage
+
+\section*{\textbf{Answer 7}}
+\lstinputlisting[language=Python]{question_7.py}
+\vspace{2mm}
+Below are the values of $W$ seen for each value of $P$ and corresponding plot of the final learned function as a function of $x$ superimposed on the training data-
+\begin{enumerate}
+    \item P = 1\\
+    W = [1.00565302, 0.12351259]
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.75]{7_1_new.png}
+    \end{figure}
+    \item P = 2\\
+    W = [ 1.55636445, -0.09905134,  0.02105954]
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.75]{7_2_new.png}
+    \end{figure}
+    \item P = 3\\
+    W = [ 2.2585207,  -0.4731082,   0.09166343, -0.0074039 ]
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.75]{7_3_new.png}
+    \end{figure}
+    \item P = 5\\
+    W = [ 2.32031732e-01,  1.70733532e+00, -7.50673264e-01  1.66018570e-01, -2.11820885e-02,  1.49990203e-03]
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.75]{7_4_new.png}
+    \end{figure}
+    \item P = 10\\
+    W = [ 1.00199719e+00,  3.46174032e-01, -6.79997048e-02,  4.04746152e-02, -2.41324409e-02,  7.30654951e-03, -1.30797499e-03,  1.49023358e-04, -1.05582815e-05,  3.71804211e-07,  2.73112041e-09]
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.75]{7_5_new.png}
+    \end{figure}
+\end{enumerate}
+\cleardoublepage
+
+\section*{\textbf{Answer 8}}
+\lstinputlisting[language=Python]{question_8.py}
+\cleardoublepage
+
+\section*{\textbf{Answer 9}}
+\lstinputlisting[language=Python]{question_9.py}
+The outputs observed are - 
+\vspace{2.5mm}
+\begin{itemize}
+    \item output 1 \textbf{4.484033437500002}
+    \item output 2 \textbf{[[4.48403344]]}
+\end{itemize}
+\cleardoublepage
+
+\section*{\textbf{Answer 10}}
+\lstinputlisting[language=Python]{question_10.py}
+\cleardoublepage
+
+\section*{\textbf{Answer 11}}
+\lstinputlisting[language=Python]{question_11.py}
+\cleardoublepage
+
+\section*{\textbf{Answer 12}}
+\lstinputlisting[language=Python]{question_12.py}
+\vspace{2mm}
+Plot of the final learned function as a function of x superimposed on the training data for each value of P is given below -
+\begin{enumerate}
+    \item P = 1
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.75]{12_1.png}
+    \end{figure}
+    \item P = 2
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.75]{12_2.png}
+    \end{figure}
+    \item P = 3
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.75]{12_3.png}
+    \end{figure}
+    \item P = 5
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.75]{12_4.png}
+    \end{figure}
+    \item P = 10
+    \begin{figure}[H]
+        \centering
+        \includegraphics[scale=0.75]{12_5.png}
+    \end{figure}
+\end{enumerate}
+\cleardoublepage
+
+
+\section*{\textbf{Answer 13}}
+From the previous results, we can see clearly from the plots that the results using kernel ridge regression are similar to results obtained using basis-expanded ridge regression for all $P$ except for the case when $P$ = 10.\\
+
+\noindent If we consider the values for $\alpha$ and $K$ generated for each $P$, we can check whether $K$ is positive definite with respect to $\alpha$. Following code evaluates $\alpha^\top K \alpha$ for each kernel - 
+\lstinputlisting[language=Python]{question_13.py}
+Results observed from this code are - 
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|}\hline
+     P    & $\alpha^\top K \alpha$ \\ \hline
+      1   & 1.0265933456\\ \hline
+      2   & 2.4325249636\\ \hline
+      3   & 5.3332049447\\ \hline
+      5   & 3.5564436669\\ \hline
+      10  & -28.3624896136\\ \hline
+    \end{tabular}
+\end{table}
+\noindent According to Mercer's Theorem, a kernel function is valid if and only if $K$ is positive definite. From above table, we can see that for $P = 10$, the value $\alpha^\top K \alpha < 0$. Hence the kernel is not positive definite for $P = 10$, and thus is not safe to use for prediction.
+\cleardoublepage
+
+
+\section*{\textbf{Answer 14}}
+\lstinputlisting[language=Python]{question_14.py}
+Mean validation-set hinge loss using linear kernel :
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|} \hline
+$\lambda$ & Hinge loss\\ \hline
+2 & 0.0413724451\\ \hline
+20 & 0.0539554495\\ \hline
+200 & 0.1069876216\\ \hline
+    \end{tabular}
+\end{table}
+\cleardoublepage
+
+\section*{\textbf{Answer 15}}
+%\lstinputlisting[language=Python]{question_15.py}
+Validation-set hinge loss for polynomial basis function of degree 3 :
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|} \hline
+    \backslashbox{$\gamma$}{$\lambda$} &  2 & 20 & 200\\ \hline
+0.001 & 0.0558986632 & 0.0464007172 & 0.0728558537\\ \hline
+0.01 & 0.0416938698 & 0.05478073 & 0.0551566034\\ \hline
+1 & 0.0443868818 & 0.0255245765 & 0.0603758981\\ \hline
+    \end{tabular}
+\end{table}
+\cleardoublepage
+
+\section*{\textbf{Answer 16}}
+%\lstinputlisting[language=Python]{question_16.py}
+Validation-set hinge loss for polynomial basis function of degree 5 :
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|} \hline
+    \backslashbox{$\gamma$}{$\lambda$} &  2 & 20 & 200\\ \hline
+0.001 & 0.2375459622 & 0.5529637811 & 0.2828776961 \\ \hline
+0.01 & 0.3191144169 & 0.744456554 & 0.2543535828 \\ \hline
+1 & 0.0571467599 & 0.1683186749 & 0.1648740333 \\ \hline
+    \end{tabular}
+\end{table}
+\cleardoublepage
+
+\section*{\textbf{Answer 17}}
+%\lstinputlisting[language=Python]{question_17.py}
+Validation-set hinge loss for radial basis function :
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|} \hline
+    \backslashbox{$\gamma$}{$\lambda$} &  2 & 20 & 200\\ \hline
+1 & 0.3843586144 & 0.8345589747 & 0.8839056438 \\ \hline
+0.01 & 0.0776329575 & 0.3602880686 & 0.8367416977 \\ \hline
+0.001 & 0.2512348443 & 0.772343879 & 0.8779857099 \\ \hline
+    \end{tabular}
+\end{table}
+\cleardoublepage
+
+\section*{\textbf{Answer 18}}
+\begin{itemize}
+    \item We chose the polynomial kernel with degree 3, $\gamma$ = 0.01 and $\lambda$ = 2. 
+    \item The estimated 0-1 error is: 0.0043796
+    \item The observed generalization error on the leaderboard is: 0.00584
+\end{itemize}
+\cleardoublepage
+
+\end{document}
