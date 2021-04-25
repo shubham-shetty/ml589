@@ -1,10 +1,7 @@
-import numpy as np
 from matplotlib import pyplot as plt
 
+from preface import X, Y
 from question_3 import likelihood_single
-
-X = np.loadtxt('x.csv')
-Y = np.loadtxt('y.csv')
 
 P = []
 for index, (x, y) in enumerate(zip(X, Y)):
