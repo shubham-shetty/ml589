@@ -1,0 +1,8 @@
+from preface import *
+from question_14 import *
+
+def Bayes_MSE(X,Y,x_test,y_test):
+    mse = np.sum(np.square((np.array(y_test) - np.array(list(map(lambda x:predict_Bayes(x,X,Y), x_test))))))/100
+    return mse
+    
+Bayes_MSE(X,Y,x,y)

@@ -1,19 +1,17 @@
-from matplotlib import pyplot as plt
-
-from preface import X, Y
+from preface import *
 from question_7 import posterior
 
-P = []
-for m in range(10):
-    P.append(posterior(X, Y, m))
+def plot_posterior(X,Y):
+    x = [0,1,2,3,4,5,6,7,8,9]
+    y = [posterior(X,Y,m) for m in x]
+    #sum_all = np.sum(np.array([posterior(X,Y,m) for m in x]))
+    #print(sum_all)
+    plt.bar(x, y)
+    plt.xlabel("m")
+    plt.ylabel("Posterior")
+    plt.xticks(np.arange(0, 10, 1))
+    #plt.yticks(np.arange(0, 1.1, 0.1))
+    plt.show()
+    
 
-sums = sum(P)
-P = [p / sums for p in P]
-for m in range(10):
-    print(f'm: {m}; posterior: {P[m]}')
-
-plt.bar(list(range(10)), P, label="Posterior Bar Chart")
-plt.xlabel("m")
-plt.ylabel("posterior")
-plt.legend()
-plt.show()
+plot_posterior(X,Y)

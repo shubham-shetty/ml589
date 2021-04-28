@@ -1,11 +1,7 @@
 from question_7 import posterior
 
 def MAP(X,Y):
-    m = 0
-    pos_m = posterior(X, Y, m)
-    for i in range(1,10) :
-        pos_i = posterior(X, Y, i)
-        if pos_i > pos_m :
-            m = i
-            pos_m = pos_i
+    m_i = [0,1,2,3,4,5,6,7,8,9]
+    p = [posterior(X,Y,i) for i in m_i]
+    m = m_i[p.index(max(p))]
     return m
