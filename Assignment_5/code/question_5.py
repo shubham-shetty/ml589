@@ -1,15 +1,14 @@
-from matplotlib import pyplot as plt
-
-from preface import X, Y
+from preface import *
 from question_3 import likelihood_single
 
-P = []
-for index, (x, y) in enumerate(zip(X, Y)):
-    P.append(likelihood_single(x, y, index))
-    print(f'm: {index}; likelihood: {P[-1]}')
-
-plt.bar(list(range(10)), P, label="Likelihood Bar Chart")
-plt.xlabel("m")
-plt.ylabel("likelihood")
-plt.legend()
-plt.show()
+def plot_likelihood(X,Y):
+    x = [0,1,2,3,4,5,6,7,8,9]
+    y = [likelihood(X,Y,m) for m in x]
+    plt.bar(x, y)
+    plt.xlabel("m")
+    plt.ylabel("Likelihood")
+    plt.xticks(np.arange(0, 10, 1))
+    plt.show()
+    
+    
+plot_likelihood(X,Y)
