@@ -1,0 +1,200 @@
+\documentclass[12pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{csquotes}
+\usepackage{subfig}
+\usepackage{diagbox}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage[margin=1in, left=1.2in, includehead, includefoot]{geometry}
+
+\usepackage{listings}
+\usepackage{xcolor}
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=mystyle}
+\graphicspath{{images/}}
+
+\title{%
+\textbf{Assignment 5: Probabilistic Learning}\\
+\large \textit{\textbf{CS 589 - ML}}}
+\author{Shubham Shetty (shubhamshett@umass.edu) \\
+Brinda Murulidhara (bmurulidhara@umass.edu)\\
+Adarsh Kolya (akolya@umass.edu)}
+\date{\textit{April 2021}}
+
+\begin{document}
+
+    \begin{titlepage}
+        \maketitle
+        \thispagestyle{empty}
+    \end{titlepage}
+
+\section*{\textbf{Preface}}
+Before running our codes, the following packages are imported and test \& training data are assigned to variables. Also, some reusable functions are defined -
+\lstinputlisting[language=Python]{preface.py}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 1}}
+\lstinputlisting[language=Python]{question_1.py}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 2}}
+\lstinputlisting[language=Python]{question_2.py}
+\vspace{2mm}
+Generated output - 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{q2.png}
+    \caption{Priors Bar Chart}
+\end{figure}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 3}}
+\lstinputlisting[language=Python]{question_3.py}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 4}}
+\lstinputlisting[language=Python]{question_4.py}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 5}}
+\lstinputlisting[language=Python]{question_5.py}
+Generated output - 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{q5.png}
+    \caption{Likelihood Bar Chart}
+\end{figure}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 6}}
+\begin{equation}
+    \begin{aligned} 
+        p(m \vert \text{Data}) &= \frac{p(m) \ p(\text{Data} \vert m)}{p(\text{Data})} \\ 
+    \end{aligned} 
+\end{equation}
+We know that $m$ can range from 0 - 9. So
+\begin{equation}
+    \begin{aligned} 
+        & \sum_{m=0}^{9}\left( p(m \vert \text{Data}) \right) = 1 \\
+        \implies & \sum_{m=0}^{9}\left( \frac{p(m) \ p(\text{Data} \vert m)}{p(\text{Data})} \right) = 1 \\
+        \implies & {p(\text{Data})} = \sum_{m=0}^{9}\left(p (m) \ p(\text{Data} \vert m) \right)
+    \end{aligned} 
+\end{equation}
+Substituting (2) in (1) we get
+\begin{equation*}
+    \boxed{\mathbf{p(m \vert \textbf{Data}) = \frac{p(m) \ p(\textbf{Data} \vert m)}{\sum_{m=0}^{9}\left(p (m) \ p(\textbf{Data} \vert m) \right)}}}
+\end{equation*}
+\cleardoublepage
+
+\section*{\textbf{Answer 7}}
+\lstinputlisting[language=Python]{question_7.py}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 8}}
+\lstinputlisting[language=Python]{question_8.py}
+Generated output - 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{q8.png}
+    \caption{Posteriors Bar Chart}
+\end{figure}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 9}}
+\lstinputlisting[language=Python]{question_9.py}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 10}}
+$m_{MAP} =$ \textbf{2} \\
+Posterior probability = $p(m_{MAP} \vert \text{Data})$ = \textbf{0.7610021202297498}
+\cleardoublepage
+
+\section*{\textbf{Answer 11}}
+\lstinputlisting[language=Python]{question_11.py}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 12}}
+\lstinputlisting[language=Python]{question_12.py}
+\vspace{2mm}
+Generated output - 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{q12.png}
+    \caption{MAP Test Predictions vs True Output}
+\end{figure}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 13}}
+\lstinputlisting[language=Python]{question_13.py}
+\vspace{2mm}
+Generated MSE value - \textbf{0.02146290417007275}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 14}}
+\lstinputlisting[language=Python]{question_14.py}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 15}}
+\lstinputlisting[language=Python]{question_15.py}
+\vspace{2mm}
+Generated output - 
+\begin{figure}[H]
+    \centering
+    \includegraphics[scale=0.75]{q15.png}
+    \caption{Bayes Test Predictions vs True Output}
+\end{figure}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 16}}
+\lstinputlisting[language=Python]{question_16.py}
+\vspace{2mm}
+Generated MSE value - \textbf{0.01635700904708008}
+
+\cleardoublepage
+
+\section*{\textbf{Answer 17}}
+The MSE for Bayes is lower than that of MAP. \\
+
+\noindent The MAP estimate returns the model which provides the highest posterior probability and disregards all other models. On the other hand, Bayes estimator returns a fully calculated probability distribution based on all posteriors. Hence the Bayes estimator's prediction is more accurate than MAP estimator as it considers all models rather than just one. MAP estimator prediction tends to get closer to the Bayes' estimator predictions as the value of max posterior probability grows.
+
+\end{document}
