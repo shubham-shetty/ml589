@@ -1,3 +1,4 @@
+from preface import *
 from question_1 import prior
 
 def show_priors():
