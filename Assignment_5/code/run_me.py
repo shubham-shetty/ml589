@@ -13,5 +13,11 @@ import question_10
 print("\n\nAnswer 12")
 import question_12
 
+print("\n\nAnswer 13")
+import question_13
+
 print("\n\nAnswer 15")
 import question_15
+
+print("\n\nAnswer 16")
+import question_16
