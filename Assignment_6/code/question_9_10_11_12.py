@@ -38,11 +38,14 @@ total_numbers = []
 compression_ratio = []
 
 for num_clusters in (2,5,10,25,50,100,200,1000):
-    kmeans = KMeans(n_clusters=num_clusters).fit(chunks)
+    kmeans = KMeans(n_clusters=num_clusters, init='random').fit(chunks)
 
+    # Represent each 3x3 block with the centroid
+    compressed_representation = kmeans.labels_
+
+    # Reconstuct the image
     # Replace each pixel value with its nearby centroid
-    compressed_image = kmeans.cluster_centers_[kmeans.labels_]
-
+    compressed_image = kmeans.cluster_centers_[compressed_representation]
     compressed_image = np.clip(compressed_image.astype('uint8'), 0, 255)
     chunkPtr = 0
 
