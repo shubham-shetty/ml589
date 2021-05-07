@@ -3,18 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from sklearn.cluster import KMeans
 
-# Helper funtion to print table 
-# Input variable table is a numpy array and headers is an array of column headers
-def prettyPrintTable(table, headers) :
-    for i, d in enumerate(table):
-        if i == 0 :
-            line = '|'.join(str(x).ljust(30) for x in headers)
-            print(line)
-            print('-' * len(line))
-
-        line = '|'.join(str(x).ljust(30) for x in d)
-        print(line)
-    print()
+from preface import prettyPrintTable
 
 img = mpimg.imread('shopping-street.jpg')
 arr = np.array(img)
@@ -29,10 +18,8 @@ for i in range(0,arr.shape[0],3):
                              arr[i,j+2], arr[i+1,j+2], arr[i+2,j+2]))
         chunkPtr = chunkPtr + 1
 
-print("Original")
 imgplot = plt.imshow(arr)
 plt.get_current_fig_manager().set_window_title("Original")
-plt.show()
 errors = []
 total_numbers = []
 compression_ratio = []
@@ -66,12 +53,10 @@ for num_clusters in (2,5,10,25,50,100,200,1000):
     
 
     # Question 9
-    print(f"Compressed with n_clusters = {num_clusters}")
     imgplot = plt.imshow(newImage)
     plt.gca().set_axis_off()
     plt.get_current_fig_manager().set_window_title(f"k = {num_clusters}")
     plt.savefig(f"Compressed_image_with_num_clusters_{num_clusters}.jpg",bbox_inches='tight',pad_inches = 0)
-    plt.show()
 
 
     # Question 10
@@ -84,7 +69,7 @@ for num_clusters in (2,5,10,25,50,100,200,1000):
     total_numbers.append([int(num_clusters), 27*num_clusters])
 
     # Question 12
-    compression_ratio.append([int(num_clusters), 1 - (27*num_clusters/(arr.shape[0] * arr.shape[1] * arr.shape[2]))])
+    compression_ratio.append([int(num_clusters), (27*num_clusters/(arr.shape[0] * arr.shape[1] * arr.shape[2]))])
 
 print(f"\nReconstruction error :")
 prettyPrintTable(np.array(errors), ['Number of clusters','Reconstruction error'])  
