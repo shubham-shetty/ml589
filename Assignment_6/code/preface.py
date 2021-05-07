@@ -9,7 +9,7 @@ for i in range(100):
     img_vector = img.flatten()
     face_data.append(img_vector)
 
-face_data = np.array(face_data)
+face_data = np.array(face_data, dtype=np.float64)
 
 
 # Helper function to print table
