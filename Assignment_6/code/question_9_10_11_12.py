@@ -3,18 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from sklearn.cluster import KMeans
 
-# Helper funtion to print table 
-# Input variable table is a numpy array and headers is an array of column headers
-def prettyPrintTable(table, headers) :
-    for i, d in enumerate(table):
-        if i == 0 :
-            line = '|'.join(str(x).ljust(30) for x in headers)
-            print(line)
-            print('-' * len(line))
-
-        line = '|'.join(str(x).ljust(30) for x in d)
-        print(line)
-    print()
+from preface import prettyPrintTable
 
 img = mpimg.imread('shopping-street.jpg')
 arr = np.array(img)
